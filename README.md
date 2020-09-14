@@ -10,6 +10,7 @@
 - [x] [Querying data with the Django ORM](#querying-data-with-the-django-orm)
 - [x] [URL Patterns](#url-patterns-aka-url-confs)
 - [x] [Building Django Templates](#building-django-templates)
+- [x] [Using Static Files](#using-static-files)
 
 ## Creating a django project 
 ```
@@ -391,6 +392,8 @@ Then running `➜  wisdompets git:(master) ✗ python3 manage.py runserver` agai
 ---
 Rendering templates `html` files
 ```python
+# urls.py
+
 from django.shortcuts import render
 from django.http import Http404
 
@@ -469,3 +472,41 @@ We use the built-in template filter `capfirst` to ensure that the ouput will hav
 ---
 
 ## Inheritance with base.html
+- Using a `base.html` to extend on every page of the website 
+- The `{% block content %}` and `{% endblock %}` tag will substitute the content block with everything in this block
+
+```html
+{% extends "base.html" %}
+{% block content %}
+<div>
+    {% for pet in pets %}
+    <div class="petname">
+        <a href="{% url 'pet_detail' pet.id %}">
+            <h3>{{ pet.name|capfirst }}</h3>
+        </a>
+        <p>{{ pet.species }}</p>
+        {% if pet.breed %}
+            <p>Breed: {{ pet.breed }}</p>
+        {% endif %}
+        <p class="hidden">{{ pet.description }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+```
+
+---
+## Using static files
+
+```python
+# wisdompets/settings.py
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
+
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+```
