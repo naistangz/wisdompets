@@ -12,6 +12,66 @@
 - [x] [Building Django Templates](#building-django-templates)
 - [x] [Using Static Files](#using-static-files)
 
+## File structure
+```bash
+.
+├── README.md
+└── wisdompets
+    ├── adoptions
+    │   ├── __init__.py
+    │   ├── __pycache__
+    │   │   ├── __init__.cpython-38.pyc
+    │   │   ├── admin.cpython-38.pyc
+    │   │   ├── models.cpython-38.pyc
+    │   │   └── views.cpython-38.pyc
+    │   ├── admin.py
+    │   ├── apps.py
+    │   ├── management
+    │   │   └── commands
+    │   │       ├── __init__.py
+    │   │       ├── __pycache__
+    │   │       │   ├── __init__.cpython-38.pyc
+    │   │       │   └── load_pet_data.cpython-38.pyc
+    │   │       └── load_pet_data.py
+    │   ├── migrations
+    │   │   ├── 0001_initial.py
+    │   │   ├── __init__.py
+    │   │   └── __pycache__
+    │   │       ├── 0001_initial.cpython-38.pyc
+    │   │       └── __init__.cpython-38.pyc
+    │   ├── models.py
+    │   ├── templates
+    │   │   ├── base.html
+    │   │   ├── home.html
+    │   │   └── pet_detail.html
+    │   ├── tests.py
+    │   └── views.py
+    ├── db.sqlite3
+    ├── manage.py
+    ├── pet_data.csv
+    ├── static
+    │   ├── images
+    │   │   ├── header.jpg
+    │   │   └── logo.png
+    │   ├── main.js
+    │   └── style.css
+    └── wisdompets
+        ├── __init__.py
+        ├── __pycache__
+        │   ├── __init__.cpython-38.pyc
+        │   ├── settings.cpython-38.pyc
+        │   ├── urls.cpython-38.pyc
+        │   └── wsgi.cpython-38.pyc
+        ├── asgi.py
+        ├── settings.py
+        ├── urls.py
+        └── wsgi.py
+
+13 directories, 38 files
+```
+
+![Django Demo](wisdompet.gif)
+
 ## Creating a django project 
 ```
 django-admin startproject wisdompets
