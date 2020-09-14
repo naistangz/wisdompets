@@ -202,7 +202,7 @@ Running migrations:
   Applying sessions.0001_initial... OK
 ```
 
-Type in python3 manage.py showmigrations to verify migrations
+Type in `python3 manage.py showmigrations` to verify migrations
 
 ---
 
@@ -338,4 +338,25 @@ In the `models.py` file we overrode the `dunder str` method, the vaccines show t
 ---
 
 ## URL Patterns aka URL confs
-- 
+- Earlier, we defined our models in `adoptions/models.py`
+- Every page on the Internet needs its own URL. This way our application knows what it should show to a user who opens that URL.
+- In Django, we use `URLconf` (url configuration) which is a set of patterns that Django will try to match the requested URL to find the correct view. 
+- At high level they decide what **views** should handle the request
+- Defined at `adoptions/views.py`
+- When a user requests a page from the site, we want to handle this request to return a `html` template
+- To handle these requests, when Django sees a request, it will route to the pet detail view, which in turn, will use the pet detail template (as an example).
+- This is handled in the `urls.py` file
+
+```python
+from django.contrib import admin
+from django.urls import path
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+]
+```
+
+- The variable `urlpatterns` is a list of calls to the path function. 
+- When a request comes in, Django checks the path definition in order from top to bottom and it will look at the first argument for the pattern to match the path against.
+- If there is **not** a `match`, it will continue to the next path definition. 
+- If the end of this list is reached, Django will return a 404 response
