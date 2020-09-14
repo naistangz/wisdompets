@@ -1,6 +1,6 @@
 ## Introduction to Django Pet Project 
 
-Contents 
+**Contents** 
 - [x] [Creating django project](#creating-a-django-project)
 - [x] [Creating an application](#creating-an-application-called-adoptions)
 - [x] [MVC Architecture](#mvc-architecture)
