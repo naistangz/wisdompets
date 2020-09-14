@@ -519,14 +519,15 @@ Importing static files in `base.html` file:
         <title>Home - Wisdom Pet Medicine</title>
         <link rel="stylesheet" id="ample-style-css" href="{% static 'style.css' %}" type="text/css" media="all">
     </head>
-...
-<body>
-    <div id="header-logo-image">
-        <a href="/">
-            <img src="{% static 'images/logo.png' %}" alt="Wisdom Pet Medicine">
-        </a>
-    </div>
-...
-    <script src="{% static 'main.js' %}"></script>
-</body>
+    ...
+    <body>
+        <div id="header-logo-image">
+            <a href="/">
+                <img src="{% static 'images/logo.png' %}" alt="Wisdom Pet Medicine">
+            </a>
+        </div>
+    ...
+        <script src="{% static 'main.js' %}"></script>
+    </body>
+</html>
 ```
