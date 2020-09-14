@@ -508,5 +508,25 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+```
 
+Importing static files in `base.html` file:
+```html
+{% load static %}
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <title>Home - Wisdom Pet Medicine</title>
+        <link rel="stylesheet" id="ample-style-css" href="{% static 'style.css' %}" type="text/css" media="all">
+    </head>
+...
+<body>
+    <div id="header-logo-image">
+        <a href="/">
+            <img src="{% static 'images/logo.png' %}" alt="Wisdom Pet Medicine">
+        </a>
+    </div>
+...
+    <script src="{% static 'main.js' %}"></script>
+</body>
 ```
