@@ -1,14 +1,14 @@
 ## Introduction to Django Pet Project 
 
 Contents 
-- [x][Creating django project](#creating-a-django-project)
-- [x][Creating an application](#creating-an-application-called-adoptions)
-- [x][MVC Architecture](#mvc-architecture)
-- [x][Django Migrations](#django-migrations)
-- [x][DB Browser for SQLite](#db-browser-for-sqlite)
-- [x][Working with the Django Admin](#working-with-django-admin)
-- [x][Querying data with the Django ORM](#querying-data-with-the-django-orm)
-- [x][URL Patterns](#url-patterns-aka-url-confs)
+- [x] [Creating django project](#creating-a-django-project)
+- [x] [Creating an application](#creating-an-application-called-adoptions)
+- [x] [MVC Architecture](#mvc-architecture)
+- [x] [Django Migrations](#django-migrations)
+- [x] [DB Browser for SQLite](#db-browser-for-sqlite)
+- [x] [Working with the Django Admin](#working-with-django-admin)
+- [x] [Querying data with the Django ORM](#querying-data-with-the-django-orm)
+- [x] [URL Patterns](#url-patterns-aka-url-confs)
 
 ## Creating a django project 
 ```
