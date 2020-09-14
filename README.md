@@ -9,6 +9,7 @@
 - [x] [Working with the Django Admin](#working-with-django-admin)
 - [x] [Querying data with the Django ORM](#querying-data-with-the-django-orm)
 - [x] [URL Patterns](#url-patterns-aka-url-confs)
+- [x] [Building Django Templates](#building-django-templates)
 
 ## Creating a django project 
 ```
@@ -352,11 +353,119 @@ from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', views.home, name='home'),
+    path('adoptions/<int:pet_id>/', views.pet_detail, name='pet_detail'),
 ]
 ```
 
 - The variable `urlpatterns` is a list of calls to the path function. 
 - When a request comes in, Django checks the path definition in order from top to bottom and it will look at the first argument for the pattern to match the path against.
+- When path `matches`, that view is called
 - If there is **not** a `match`, it will continue to the next path definition. 
 - If the end of this list is reached, Django will return a 404 response
+
+---
+
+Path explanation:
+```python
+    path('adoptions/<int:pet_id>/', views.pet_detail, name='pet_detail'),
+```
+- `Path converter` - a pattern string, matched literally such as `adoptions/`. Anything inside `<>` angled brackets is called the `capture` group. This can match different strings, and treats this as a variable. Before colon we use `int` to define converter type and this states we are expecting an integer number in the path. This will match `adoptions/` followed by a number but will not match if adoptions was followed by slash and then `letter` or `word`. After `:` colon, we have `pet_id` which defines how we want to name the resulting variable e.g `adoptions/1`
+- `View` to use
+- `Name` (optional; used to create links)
+
+---
+
+Testing out the routing:
+```python
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse('<p>Home view</p>')
+
+def pet_data(request, pet_id):
+    return HttpResponse(f'<p>pet_detail view with id {pet_id}</p>')
+```
+Then running `➜  wisdompets git:(master) ✗ python3 manage.py runserver` again.
+
+---
+Rendering templates `html` files
+```python
+from django.shortcuts import render
+from django.http import Http404
+
+from .models import Pet
+
+def home(request):
+    pets = Pet.objects.all()
+    return render(request, 'home.html', {
+        'pets': pets,
+
+    })
+
+def pet_detail(request, pet_id):
+    try:
+        pet = Pet.objects.get(id=pet_id)
+    except Pet.DoesNotExist:
+        raise Http404('Pet not found')
+    return render(request, 'pet_detail.html', {
+        'pet': pet,
+    })
+```
+
+---
+
+## Building Django Templates 
+- Django templates are HTML files that use Jinja syntax
+- When a view calls the render function, it passes data into the templates, and template generates the HTML to show to the user
+- The syntax for Django templates has **3** pieces:
+```html
+{{ variable }}
+
+{% tag %}
+
+{{ variable|filter }}
+```
+
+- `{{ variable }}` - a variable's value is shown when used inside of doubly curly braces
+- `{% tag %}` - a template tag is enclosed in curly braces with percent signs. These are used for for loops, if statements, structural elements and control logic
+- `{{ variable|filter }}` - variable can have a `|` pipe character to use a template filter.
+- Template filters take a string as input and return a string as output (like pipe in shell scripting).
+    - Mostly used to take a string and change some formatting e.g date timeout or forcing text into title or uppercase
+    
+```html
+# In adoptions /templates/home.html
+
+{% for pet in pets %}
+    <li>{{ pet.name }}</li>
+{% endfor %}
+
+# Resulting HTML
+<li>Scooter</li>
+<li>Pepe</li>
+...
+```
+
+Rendering a `<ul>` tag with a list of inner li tags, each with the name of a pet and a link to its detail page:
+```html
+<ul>
+    {% for pet in pets %}
+        <li>
+            <a href="{% url 'pet_detail' pet.id %}">
+               {{ pet.name|capfirst }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+# Resulting HTML
+  <ul>    
+    <li><a href="/adoptions/1">Pepe</a></li>
+    <li><a href="/adoptions/2">Scooter</a></li>
+  </ul> 
+```
+We use the built-in template filter `capfirst` to ensure that the ouput will have its first letter capitalised 
+
+---
+
+## Inheritance with base.html

@@ -16,6 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from adoptions import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # matching a url with an empty path or root URL, then dispatching to the home function from the views module and lastly naming the pattern home
+    path('', views.home, name='home'),
+    # creating route for looking at individual pets, using capture group
+    path('adoptions/<int:pet_id>/', views.pet_detail, name='pet_detail'),
 ]
